@@ -18,3 +18,23 @@ console.log("==>>",b )
   console.log("==>>err throw" )
   
 }
+
+
+---------------------------time zone ----------------------------
+
+//utc
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log('timeZone==>',timeZone); //systemTimeZone
+var gfg =  new Date().toISOString()
+const date = new Date(gfg);
+console.log('local utc==>',date); //local utc date
+console.log('local date==>>',date.toLocaleString()); //local date
+
+//Pacific/Midway //
+const str = new Date(date).toLocaleString('en-US', { timeZone: 'Pacific/Midway' }); //static timezone with utc time
+let dt = new Date(str);
+
+console.log('Pacific/Midway===>>',str); 
+
+console.log('time zone ==>>',dt.toISOString()); 
+
