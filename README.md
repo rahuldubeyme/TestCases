@@ -41,30 +41,31 @@ console.log('time zone ==>>',dt.toISOString());
 
 --------------------------------------------------------------------------
 
-
-
-{
-    $match: {
-      $expr: {
-        $and: [
+db.collection.aggregate([
+  {
+    $project: {
+      timestamp: {
+        $toDate: "$timestamp"
+      }
+    }
+  },
+  {
+    "$project": {
+      timestamp: 1,
+      timestamps: {
+        $gte: [
           {
-            $gte: [
-              {
-                $toDate: "$timestamp"
-              },
-              ISODate("2023-03-01T00:00:00.000Z")
-            ]
+            $dayOfMonth: "$timestamp"
           },
-          {
-            $lte: [
-              {
-                $toDate: "$timestamp"
-              },
-              ISODate("2023-03-29T23:59:59.999Z")
-            ]
-          }
+          15
         ]
       }
     }
   },
+  {
+    $match: {
+      timestamps: true
+    }
+  }
+])
 
