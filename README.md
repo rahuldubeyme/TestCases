@@ -38,3 +38,33 @@ console.log('Pacific/Midway===>>',str);
 
 console.log('time zone ==>>',dt.toISOString()); 
 
+
+--------------------------------------------------------------------------
+
+
+
+{
+    $match: {
+      $expr: {
+        $and: [
+          {
+            $gte: [
+              {
+                $toDate: "$timestamp"
+              },
+              ISODate("2023-03-01T00:00:00.000Z")
+            ]
+          },
+          {
+            $lte: [
+              {
+                $toDate: "$timestamp"
+              },
+              ISODate("2023-03-29T23:59:59.999Z")
+            ]
+          }
+        ]
+      }
+    }
+  },
+
